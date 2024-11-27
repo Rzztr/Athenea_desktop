@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Ubicaciones</title>
+</head>
+<body>
+    <h1>Ubicaciones Guardadas</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Latitud</th>
+            <th>Longitud</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for ubicacion in ubicaciones %}
+        <tr>
+            <td>{{ ubicacion.id }}</td>
+            <td>{{ ubicacion.latitud }}</td>
+            <td>{{ ubicacion.longitud }}</td>
+            <td>{{ ubicacion.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+</body>
+</html>
