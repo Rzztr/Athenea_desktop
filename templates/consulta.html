@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Consulta de Ubicaciones</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_consultas.css') }}">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDaeWicvigtP9xPv919E-RNoxfvC-Hqik"></script>
+    <script src="{{ url_for('static', filename='script_consultas.js') }}" defer></script>
 </head>
 <body>
     <h1>Ubicaciones Guardadas</h1>
@@ -12,17 +15,32 @@
             <th>Latitud</th>
             <th>Longitud</th>
             <th>Timestamp</th>
+            <th>Acción</th>
         </tr>
-        {% for ubicacion in ubicaciones %}
+        {% for ubicaciones in ubicaciones %}
         <tr>
-            <td>{{ ubicacion.id }}</td>
-            <td>{{ ubicacion.latitud }}</td>
-            <td>{{ ubicacion.longitud }}</td>
-            <td>{{ ubicacion.timestamp }}</td>
+            <td>
+                <button class="deleteButton" data-id="{{ ubicaciones.id }}">Eliminar</button>
+            </td>
+            <td>{{ ubicaciones.id }}</td>
+            <td>{{ ubicaciones.latitud }}</td>
+            <td>{{ ubicaciones.longitud }}</td>
+            <td>{{ ubicaciones.timestamp }}</td>
+            <td>
+                <button class="mapButton" data-lat="{{ ubicaciones.latitud }}" data-lng="{{ ubicaciones.longitud }}">Ver Mapa</button>
+            </td>
         </tr>
         {% endfor %}
     </table>
     <br>
     <a href="{{ url_for('logout') }}">Cerrar Sesión</a>
+
+    <!-- Modal para mostrar el mapa -->
+    <div id="mapModal">
+        <div id="mapContainer">
+            <button class="closeButton">Cerrar</button>
+            <div id="map"></div>
+        </div>
+    </div>
 </body>
 </html>
